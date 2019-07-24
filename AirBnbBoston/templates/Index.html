@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AirBnb Boston Data Analysis</title>
+
+
+<!--import script files needed from plotly and bootstrap-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+<style>
+    h1{
+    font-family: 'Noto Sans KR', sans-serif;
+    }
+</style>
+
+</head>
+<body>
+<H1>Two types of Airbnb Hosts</H1>
+<div class="main">
+    <p>
+    Who is the host behind Airbnb? I once lived in an Airbnb the host is a old lady with a lot of books, we talked and talked about a lot of books, of course a nerd like me felt like it is the best part of my trip. But in other times, I lived in an Airbnb where I never met the host and it felt like a self-checked hotel.
+</p>
+<p>
+    So the point is host is really important part of Airbnb and they essentially the creator of the experience. By playing around with the Boston Airbnb data given in Kaggle (https://www.kaggle.com/airbnb/boston) I found there are two types of Airbnb host: Those with a plenty of property to rent (has total listings more than 3), and those who only rent their own house.
+</p>
+<p>
+    In this article, we only tried to understand more about the professional host the individual host, besides how much listings they have. The questions I try to answer are:
+</p>
+<ul>
+    <li>Is the professional host tends to charge more than individual host></li>
+    <li>Is the professional host required longer minimum stay nights than individual host?</li>
+    <li>Is the professional host has more availability in 30 days than the individual host?</li>
+    <li>Is professional host has better reviews than the individual host? </li>
+</ul>
+</div>
+<!--middle section-->
+<div class="row">
+   <!--charts-->
+        <div id="charts" class="container mt-3 text-center">
+
+            <!--top two charts-->
+            <div class="row">
+                <div class="col-6">
+                    <p>Is the professional host tends to charge more than individual host?</p>
+                    <div id="{{ids[0]}}"></div>
+                    <p>Our result said yes! On average professional host charge 186.92, while individual host charge 164.91. you can see from the chart that there are more professional host in the 200-400 price range than individual host. </p>
+                </div>
+                <div class="col-6">
+                    <p>Is the professional host required longer minimum stay nights than individual host? </p>
+                    <div id="{{ids[1]}}"></div>
+                    <p>Our result say yes! A Large portion of professional host required guest to stay more than 3 nights.</p>
+                </div>
+            </div>
+
+            <!--bottom two charts-->
+            <div class="row mb-6">
+                <div class="col-6">
+                    <p>Is the professional host has more availability in 30 days than the individual host? </p>
+                    <div id="chart3">
+                        <div id="{{ids[2]}}"></div>
+                    </div>
+                    <p>Absolutely yes! At the time the data is scraped, most of individual host has availability less than 10 days in 30 days, whereas many professional host still has a plenty availability.</p>
+                </div>
+                <div class="col-6">
+                    <p>Is professional host has better reviews than the individual host? </p>
+                    <div id="chart4">
+                        <div id="{{ids[3]}}"></div>
+                    </div>
+                    <p>Our result say no! Even though most of the professional and individual host lies in the range of 80-100, you can see from the chart, individual host receive higher score than professional host. </p>
+                <div>
+            </div>
+
+        </div>
+            </div>
+        </div>
+</div>
+</body>
+
+<!--footer section-->
+<div id="footer" class="container"></div>
+
+
+
+<footer>
+
+    <script type="text/javascript">
+        var figures = {{figuresJSON | safe}};
+        var ids = {{ids | safe}};
+        for(var i in figures) {
+            Plotly.plot(ids[i],
+                figures[i].data,
+                figures[i].layout || {});
+        }
+    </script>
+
+</footer>
